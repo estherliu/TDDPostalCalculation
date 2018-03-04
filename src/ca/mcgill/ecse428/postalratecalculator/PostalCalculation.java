@@ -25,11 +25,12 @@ public class PostalCalculation {
 				PostalPack p = new PostalPack(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
 				System.out.println(calculateRate(p));
 			} catch (Exception e) {
-
+				System.out.println("create fails");
 			}
 
+		} else {
+			System.out.println(resultMessage);
 		}
-		System.out.println(resultMessage);
 
 	}
 
@@ -39,11 +40,11 @@ public class PostalCalculation {
 
 	public static boolean checkInput(String[] args) {
 		if (args.length < 7) {
-			resultMessage = "argument too few";
+			resultMessage = "arguments too few";
 			return false;
 		}
 		if (args.length > 7) {
-			resultMessage = "argument too many";
+			resultMessage = "arguments too many";
 			return false;
 		}
 
@@ -55,16 +56,9 @@ public class PostalCalculation {
 
 	}
 
-	// TODO
-	public static boolean checkPostalCode(String PostCode) {
-		if (PostCode != null) {
-			return true;
-		}
-		return false;
-	}
-
-	// T3,T4
+	// T3,T4,T5
 	public static boolean checkLength(String length) {
+
 		try {
 			Float lengthnum = Float.parseFloat(length);
 			if (lengthnum < 140.0) {
@@ -86,8 +80,9 @@ public class PostalCalculation {
 
 	}
 
-	// T5,T6
+	// T6,T7,T8
 	public static boolean checkWidth(String width) {
+
 		try {
 			Float widthnum = Float.parseFloat(width);
 			if (widthnum < 90.0) {
@@ -102,24 +97,10 @@ public class PostalCalculation {
 			resultMessage = "invalid width";
 			return false;
 		}
+
 	}
 
-	// height checking
-	public static boolean checkHeight(String height) {
-		try {
-			Float heightnum = Float.parseFloat(height);
-			if (heightnum < 0.0) {
-				resultMessage = "height too small";
-				return false;
-			} else
-				return true;
-		} catch (NumberFormatException e) {
-			resultMessage = "invalid height";
-			return false;
-		}
-	}
-
-	// T7,T8
+	// T9,T10,T11
 	public static boolean checkWeight(String weight) {
 		try {
 			Float weightnum = Float.parseFloat(weight);
@@ -137,9 +118,39 @@ public class PostalCalculation {
 			resultMessage = "invalid weight";
 			return false;
 		}
+
 	}
 
-	// postal type checking
+	// T12,T13,T14
+	// height range unknown...
+	// TO BE CONTINUED
+	public static boolean checkHeight(String height) {
+		try {
+			Float heightnum = Float.parseFloat(height);
+			if (heightnum < 0.0) {
+				resultMessage = "height too small";
+				return false;
+			} else
+				return true;
+		} catch (NumberFormatException e) {
+			resultMessage = "invalid height";
+			return false;
+		}
+	}
+
+	// T15,T16
+	public static boolean checkPostalCode(String PostCode) {
+		if (PostCode.length() == 6 && Character.isLetter(PostCode.charAt(0)) && Character.isLetter(PostCode.charAt(2))
+				&& Character.isLetter(PostCode.charAt(4)) && Character.isDigit(PostCode.charAt(1))
+				&& Character.isDigit(PostCode.charAt(3)) && Character.isDigit(PostCode.charAt(5))) {
+
+			return true;
+		}
+		resultMessage="invalid postal code";
+		return false;
+	}
+
+	// T17
 	private static boolean checkPostType(String atype) {
 		switch (atype) {
 		case "Regular":
@@ -155,7 +166,9 @@ public class PostalCalculation {
 
 	}
 
-	// T9-T16
+	// T18 
+	// should we take height, address and postal type into consideration?
+	// TO BE CONTINUED
 	private static float calculateRate(PostalPack p) {
 		float postage = 0;
 		if (p.length >= 140 && p.length <= 245 && p.width >= 90 && p.width <= 156) {
