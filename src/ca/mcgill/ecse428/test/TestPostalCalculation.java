@@ -9,7 +9,7 @@ import ca.mcgill.ecse428.postalratecalculator.PostalCalculation;
 
 public class TestPostalCalculation {
 
-	PostalPack p;
+	//PostalPack p;
 	PostalCalculation pc;
 
 	public void setUp() {
@@ -97,9 +97,11 @@ public class TestPostalCalculation {
 		String[] args = { "H2H2H2", "H2X3F4", "150", "100", "100", "800", "Regular" };
 		PostalCalculation.checkInput(args);
 		assertEquals(PostalCalculation.getResultMessage(), "weight too big");
-
+		
+		
 	}
 
+	
 	@Test
 	public void test_postal_cal_011() {
 		// check if the weight input is a number
@@ -109,23 +111,67 @@ public class TestPostalCalculation {
 
 	}
 
+	@Test
 	public void test_postal_cal_012() {
+		assertEquals(PostalCalculation.checkHeight("-100"), false); 
 
 	}
 
+	@Test
 	public void test_postal_cal_013() {
+		assertEquals(PostalCalculation.checkHeight("height"), false);
 
 	}
 
+	@Test
 	public void test_postal_cal_014() {
-
+		assertEquals(PostalCalculation.checkPostalCode("123456"), false); 
+		
 	}
 
+	@Test
 	public void test_postal_cal_015() {
+		assertEquals(PostalCalculation.checkPostType("Letter"), false); 
 
 	}
 
-	public void test_postal_cal_016() {
+	@Test 
+	public void test_postal_cal_016() throws Exception {
+		 
+		PostalPack p = new PostalPack("H2H2H2", "H2X3F4", "150.0", "100.0", "50.0", "20.0", "Regular");
+		
+		float postage = PostalCalculation.calculateRate(p); 
+		
+		assertEquals(postage, 0.49, 0.001); 
+		
+		if(p.setWeight("40.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 0.8, 0.001); 
+		}
+		if(p.setWeight("80.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 0.98, 0.001); 
+		}
+		if(p.setWeight("200.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 2.4, 0.001); 
+		}
+		if(p.setLength("300.0") && p.setWeight("20.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 0.98, 0.001); 
+		}
+		if(p.setWeight("300.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 2.4, 0.001); 
+		}
+		if(p.setLength("150.0") && p.setWidth("200.0") && p.setWeight("20.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 0.98, 0.001); 
+		}
+		if(p.setWeight("300.0")) {
+			postage = PostalCalculation.calculateRate(p); 
+			assertEquals(postage, 2.4, 0.001); 
+		}
 
 	}
 

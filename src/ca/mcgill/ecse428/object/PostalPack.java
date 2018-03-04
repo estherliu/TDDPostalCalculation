@@ -45,5 +45,26 @@ public class PostalPack {
 		
 		
 	}
+	
+	public boolean setLength(String length) {
+		boolean isSet = false; 
+		this.length = Float.parseFloat(length);
+		isSet = true; 
+		return isSet; 
+	}
+	public boolean setWeight(String weight) {
+		boolean isSet = false; 
+		this.weight = Float.parseFloat(weight); 
+		isSet = true; 
+		return isSet; 
+		
+	}
+	public boolean setWidth(String width) {
+		boolean isSet = false; 
+		this.width = Float.parseFloat(width); 
+		isSet = true; 
+		return isSet;
+		
+	}
 
 }

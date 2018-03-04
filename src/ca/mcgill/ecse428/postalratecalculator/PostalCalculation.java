@@ -112,8 +112,9 @@ public class PostalCalculation {
 			else if (weightnum > 500.0) {
 				resultMessage = "weight too big";
 				return false;
-			} else
+			} else { 
 				return true;
+			} 
 		} catch (NumberFormatException e) {
 			resultMessage = "invalid weight";
 			return false;
@@ -128,16 +129,18 @@ public class PostalCalculation {
 		try {
 			Float heightnum = Float.parseFloat(height);
 			if (heightnum < 0.0) {
-				resultMessage = "height too small";
+				resultMessage = "invalid height";
 				return false;
-			} else
+			} else {
 				return true;
+			} 
 		} catch (NumberFormatException e) {
 			resultMessage = "invalid height";
 			return false;
 		}
 	}
 
+	
 	// T15,T16
 	public static boolean checkPostalCode(String PostCode) {
 		if (PostCode.length() == 6 && Character.isLetter(PostCode.charAt(0)) && Character.isLetter(PostCode.charAt(2))
@@ -149,9 +152,12 @@ public class PostalCalculation {
 		resultMessage="invalid postal code";
 		return false;
 	}
+	
+	
+	
 
 	// T17
-	private static boolean checkPostType(String atype) {
+	public static boolean checkPostType(String atype) {
 		switch (atype) {
 		case "Regular":
 			return true;
@@ -162,14 +168,14 @@ public class PostalCalculation {
 		default:
 			resultMessage = "invalid post type";
 			return false;
-		}
+		} 
 
 	}
 
 	// T18 
 	// should we take height, address and postal type into consideration?
 	// TO BE CONTINUED
-	private static float calculateRate(PostalPack p) {
+	public static float calculateRate(PostalPack p) {
 		float postage = 0;
 		if (p.length >= 140 && p.length <= 245 && p.width >= 90 && p.width <= 156) {
 			if (p.weight >= 3 && p.weight <= 30)
@@ -197,54 +203,5 @@ public class PostalCalculation {
 
 	}
 
-	/*
-	 * public static boolean checkDimension(double dimension) { if (dimension > 0) {
-	 * return true; } return false; }
-	 * 
-	 * 
-	 * public static boolean checkCountry(Country c) { if (c.equals(Country.CANADA)
-	 * || c.equals(Country.US) || c.equals(Country.INTERNATIONAL)) { return true; }
-	 * return false; }
-	 * 
-	 * public static double matchTire(PostalPack p, double[] rates) {
-	 * 
-	 * switch (p.type) { case Regular: return matchWeight(p, rates); case Xpress:
-	 * for (int i = 0; i < rates.length; i++) { rates[i] = rates[i] * XpressMulti; }
-	 * return matchWeight(p, rates); case Priority: for (int i = 0; i <
-	 * rates.length; i++) { rates[i] = rates[i] * PriMulti; } return matchWeight(p,
-	 * rates); }
-	 * 
-	 * return 0.0; }
-	 * 
-	 * public static double matchWeight(PostalPack p, double[] rates) { if (p.weight
-	 * <= 100) { return rates[0]; } else if (p.weight > 100 && p.weight <= 200) {
-	 * return rates[1]; } else if (p.weight > 200 && p.weight <= 300) { return
-	 * rates[2]; } else if (p.weight > 300 && p.weight <= 400) { return rates[3]; }
-	 * else if (p.weight > 400 && p.weight <= 500) { return rates[4]; } else if
-	 * (p.weight > 500) { return rates[5]; } return 0.0;
-	 * 
-	 * }
-	 * 
-	 * public static double calculateRate(PostalPack p) throws Exception { if
-	 * (!checkPostalCode(p.PostCodeFrom)) { throw new
-	 * Exception("PostCodeFrom is invalid"); } else if
-	 * (!checkPostalCode(p.PostCodeTo)) { throw new
-	 * Exception("PostCodeIn is invalid"); } else if (!checkDimension(p.height)) {
-	 * throw new Exception("Height is invalid"); } else if
-	 * (!checkDimension(p.length)) { throw new Exception("Length is invalid"); }
-	 * else if (!checkDimension(p.width)) { throw new Exception("Width is invalid");
-	 * } else if (!checkDimension(p.weight)) { throw new
-	 * Exception("Weight is invalid"); } else if (!checkPostalType(p.type)) { throw
-	 * new Exception("Type of Service is invalid"); } else if
-	 * (!checkCountry(p.country)) { throw new
-	 * Exception("Destinating Country is invalid"); } else { if
-	 * (p.country.equals(Country.US)) { return p.weight * matchTire(p, rateTireUS);
-	 * } else if (p.country.equals(Country.CANADA)) { return p.weight * matchTire(p,
-	 * rateTireCAD); } else { return p.weight * matchTire(p, rateTireINT); }
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
-
+	
 }
