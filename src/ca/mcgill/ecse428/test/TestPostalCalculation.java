@@ -96,9 +96,7 @@ public class TestPostalCalculation {
 		// check if weight is bigger than 500
 		String[] args = { "H2H2H2", "H2X3F4", "150", "100", "100", "800", "Regular" };
 		PostalCalculation.checkInput(args);
-		assertEquals(PostalCalculation.getResultMessage(), "weight too big");
-		
-		
+		assertEquals(PostalCalculation.getResultMessage(), "weight too big");		
 	}
 
 	
@@ -113,30 +111,42 @@ public class TestPostalCalculation {
 
 	@Test
 	public void test_postal_cal_012() {
-		assertEquals(PostalCalculation.checkHeight("-100"), false); 
+		assertEquals(PostalCalculation.checkHeight("30"), false); 
 
 	}
 
 	@Test
 	public void test_postal_cal_013() {
-		assertEquals(PostalCalculation.checkHeight("height"), false);
+		assertEquals(PostalCalculation.checkHeight("100"), false);
 
 	}
-
+	
 	@Test
 	public void test_postal_cal_014() {
+		assertEquals(PostalCalculation.checkPostalCode("height"), false); 		
+	}
+
+
+	@Test
+	public void test_postal_cal_015() {
 		assertEquals(PostalCalculation.checkPostalCode("123456"), false); 
 		
 	}
 
 	@Test
-	public void test_postal_cal_015() {
+	public void test_postal_cal_016() {
 		assertEquals(PostalCalculation.checkPostType("Letter"), false); 
 
 	}
 
+	@Test
+	public void test_postal_cal_017() {
+		assertEquals(PostalCalculation.checkPostType("Letter"), false); 
+
+	}
+	
 	@Test 
-	public void test_postal_cal_016() throws Exception {
+	public void test_postal_cal_018() throws Exception {
 		 
 		PostalPack p = new PostalPack("H2H2H2", "H2X3F4", "150.0", "100.0", "50.0", "20.0", "Regular");
 		
@@ -175,13 +185,6 @@ public class TestPostalCalculation {
 
 	}
 
-	public void test_postal_cal_017() {
-
-	}
-
-	public void test_postal_cal_018() {
-
-	}
 
 
 	public void tearDown() {
